@@ -1,0 +1,25 @@
+{
+  "name": "linebot-todo",
+  "version": "0.0.1",
+  "description": "LINE bot for helping people manage their todo list",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "linebot": "^1.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boybundit/linebot-todo.git"
+  },
+  "author": "Bundit Jitkongchuen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boybundit/linebot-todo/issues"
+  },
+  "homepage": "https://github.com/boybundit/linebot-todo#readme"
+}
