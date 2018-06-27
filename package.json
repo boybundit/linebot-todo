@@ -5,7 +5,9 @@
   "main": "index.js",
   "dependencies": {
     "dotenv": "^6.0.0",
-    "linebot": "^1.4.1"
+    "linebot": "^1.4.1",
+    "mocha": "^5.2.0",
+    "moment": "^2.22.2"
   },
   "devDependencies": {},
   "scripts": {
