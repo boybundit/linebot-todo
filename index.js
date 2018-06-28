@@ -64,6 +64,9 @@ app.use(passport.session());
 
 // Define routes.
 app.get('/', function(req, res) {
+  if (!req.user) {
+    return res.redirect('/login/line');
+  }
   res.send('Hello World ' + JSON.stringify(req.user));
 });
 
