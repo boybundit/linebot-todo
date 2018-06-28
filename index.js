@@ -24,12 +24,14 @@ const client = new line.Client(config);
 const app = express();
 
 app.post('/linewebhook', line.middleware(config), (req, res) => {
+  console.log(req.body.events);
   Promise
     .all(req.body.events.map(handleEvent))
     .then((result) => res.json(result));
 });
 
 function handleEvent(event) {
+  console.log(event);
   if (event.type !== 'message' || event.message.type !== 'text') {
     return Promise.resolve(null);
   }
@@ -40,7 +42,7 @@ function handleEvent(event) {
         return Promise.resolve(null);
       }
       return client.replyMessage(event.replyToken, event.result);
-    });  
+    });
 }
 
 app.listen(process.env.PORT || 3000);
