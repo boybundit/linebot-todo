@@ -4,10 +4,14 @@
   "description": "LINE bot for helping people manage their todo list",
   "main": "index.js",
   "dependencies": {
+    "@line/bot-sdk": "^6.1.0",
     "dotenv": "^6.0.0",
+    "express": "^4.16.3",
     "linebot": "^1.4.1",
     "mocha": "^5.2.0",
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "passport": "^0.4.0",
+    "passport-line-auth": "^0.2.3"
   },
   "devDependencies": {},
   "scripts": {

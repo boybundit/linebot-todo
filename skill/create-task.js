@@ -4,7 +4,7 @@ const tasks = []; // mock db
 
 function createTaskSkill(event) {
   if (!event.message.text) {
-    return;
+    return Promise.resolve(null);
   }
   const params = event.message.text.split(' : ');
   const task = params[0];
@@ -26,7 +26,10 @@ function createTaskSkill(event) {
     important: false,
     finished: false
   });
-  event.reply(`Task "${task}" created.`);
+  return Promise.resolve({
+    type: 'text',
+    text: `Task "${task}" created.`
+  });
 }
 
 module.exports = createTaskSkill;
