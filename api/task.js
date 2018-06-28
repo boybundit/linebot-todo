@@ -9,8 +9,15 @@ const tasks = [
   { userId: 'U17448c796a01b715d293c34810985a4e', tasks: [] }
 ]; // mock db
 
-router.get('/tasks', (req, res) => {
-  return res.json(tasks);
+function checkAuth(req, res, next) {
+  if (!req.user) {
+    return res.sendStatus(403);
+  }
+  return next();
+}
+
+router.get('/tasks', checkAuth, (req, res) => {
+  return res.json(tasks.filter(task => task.userId === req.user.id));
 });
 
 module.exports = router;
