@@ -26,10 +26,11 @@ function createTaskSkill(event) {
     important: false,
     finished: false
   });
-  return Promise.resolve({
+  event.result = {
     type: 'text',
     text: `Task "${task}" created.`
-  });
+  };
+  return Promise.resolve(event.result);
 }
 
 module.exports = createTaskSkill;
