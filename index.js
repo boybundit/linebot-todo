@@ -1,20 +1,8 @@
-/*require('dotenv').config()
-const linebot = require('linebot');
-
-const bot = linebot({
-  channelId: process.env.CHANNEL_ID,
-  channelSecret: process.env.CHANNEL_SECRET,
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
-});
-
-bot.on('message', require('./skill/create-task'));
-
-bot.listen('/linewebhook', process.env.PORT || 3000);
-*/
 require('dotenv').config()
 const express = require('express');
 const line = require('@line/bot-sdk');
 const createTaskSkill = require('./skill/create-task');
+const taskMiddleware = require('./api/task');
 
 const config = {
   channelSecret: process.env.CHANNEL_SECRET,
@@ -44,5 +32,7 @@ function handleEvent(event) {
       return client.replyMessage(event.replyToken, event.result);
     });
 }
+
+app.use(taskMiddleware);
 
 app.listen(process.env.PORT || 3000);
