@@ -3,6 +3,7 @@ const express = require('express');
 const passport = require('passport');
 const LineStrategy = require('passport-line-auth').Strategy;
 const jwt = require('jsonwebtoken');
+const path = require('path');
 const line = require('@line/bot-sdk');
 const createTaskSkill = require('./skill/create-task');
 const taskMiddleware = require('./api/task');
@@ -63,13 +64,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Define routes.
-app.get('/', function(req, res) {
-  if (!req.user) {
-    return res.redirect('/login/line');
-  }
-  res.send('Hello World ' + JSON.stringify(req.user));
-});
-
 app.get('/login/line', passport.authenticate('line'));
 
 app.get('/login/line/return',
@@ -77,6 +71,14 @@ app.get('/login/line/return',
   function(req, res) {
     res.redirect('/');
   });
+
+function checkAuth(req, res, next) {
+  if (!req.user) {
+    return res.redirect('/login/line');
+  }
+  return next();
+}
+app.use(checkAuth, express.static(path.join(__dirname, './web/build')))
 
 app.use(taskMiddleware);
 
