@@ -21,7 +21,7 @@ function createTaskSkill(event) {
   if (!params[2]) {
     params[2] = '12:00';
   }
-  const date = moment(`${params[1]} ${params[2]}`, 'DD/MM/YY HH:mm');
+  const date = moment(`${params[1]} ${params[2]}`, 'DD/MM/YY HH:mm').format();
   const userId = event.source.userId;
   taskModel.add(userId, {
     task,
