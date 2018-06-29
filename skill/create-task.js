@@ -29,55 +29,60 @@ function createTaskSkill(event) {
     important: false,
     done: false
   });
-  event.result = {
-    "type": "bubble",
-    "body": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "TODO",
-          "weight": "bold",
-          "color": "#1DB446",
-          "size": "sm"
-        },
-        {
-          "type": "text",
-          "text": `${task}`,
-          "weight": "bold",
-          "size": "xxl",
-          "margin": "md"
-        },
-        {
-          "type": "text",
-          "text": `${date.format('DD/MM/YY HH:mm')}`,
-          "size": "xs",
-          "color": "#aaaaaa",
-          "wrap": true
-        },
-        {
-          "type": "separator",
-          "margin": "xxl"
-        },
-        {
-          "type": "box",
-          "layout": "horizontal",
-          "margin": "md",
-          "contents": [
-            {
-              "type": "button",
-              "style": "link",
-              "action":
+  event.result = {  
+    "type": "flex",
+    "altText": "this is a flex message",
+    "contents":
+    {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "TODO",
+            "weight": "bold",
+            "color": "#1DB446",
+            "size": "sm"
+          },
+          {
+            "type": "text",
+            "text": `${task}`,
+            "weight": "bold",
+            "size": "xxl",
+            "margin": "md"
+          },
+          {
+            "type": "text",
+            "text": `${date.format('DD/MM/YY HH:mm')}`,
+            "size": "xs",
+            "color": "#aaaaaa",
+            "wrap": true
+          },
+          {
+            "type": "separator",
+            "margin": "xxl"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "margin": "md",
+            "contents": [
               {
-                "type": "uri",
-                "label": "Edit",
-                "uri": "https://linebot-todo.heroku.com/"
+                "type": "button",
+                "style": "link",
+                "action":
+                {
+                  "type": "uri",
+                  "label": "Edit",
+                  "uri": "https://linebot-todo.heroku.com/"
+                }
               }
-            }
-          ]
-        }
-      ]
+            ]
+          }
+        ]
+      }
     }
   };
   return Promise.resolve(event.result);
