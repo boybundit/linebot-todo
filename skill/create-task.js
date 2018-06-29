@@ -1,6 +1,58 @@
 const moment = require('moment');
 const taskModel = require('../db/task');
 
+const template = {
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "TODO",
+        "weight": "bold",
+        "color": "#1DB446",
+        "size": "sm"
+      },
+      {
+        "type": "text",
+        "text": "{task}",
+        "weight": "bold",
+        "size": "xxl",
+        "margin": "md"
+      },
+      {
+        "type": "text",
+        "text": "{date}",
+        "size": "xs",
+        "color": "#aaaaaa",
+        "wrap": true
+      },
+      {
+        "type": "separator",
+        "margin": "xxl"
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "margin": "md",
+        "contents": [
+            {
+            "type": "button",
+            "style": "link",
+            "action":
+            {
+              "type": "uri",
+              "label": "Edit",
+              "uri": "https://linebot-todo.heroku.com/"
+            }
+          }
+        ]
+      }
+    ]
+  }
+};
+
 function createTaskSkill(event) {
   if (!event.message.text) {
     return Promise.resolve(null);
@@ -21,18 +73,17 @@ function createTaskSkill(event) {
   if (!params[2]) {
     params[2] = '12:00';
   }
-  const date = moment(`${params[1]} ${params[2]}`, 'DD/MM/YY HH:mm').format();
+  const date = moment(`${params[1]} ${params[2]}`, 'DD/MM/YY HH:mm');
   const userId = event.source.userId;
   taskModel.add(userId, {
     task,
-    date,
+    date: date.format(),
     important: false,
     done: false
   });
-  event.result = {
-    type: 'text',
-    text: `Task "${task}" created.`
-  };
+  let result = template.replace('{task}', task);
+  result = result.replace('{date}', date.format('DD/MM/YY HH:mm'));
+  event.result = result;
   return Promise.resolve(event.result);
 }
 
