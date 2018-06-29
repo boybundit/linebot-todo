@@ -76,7 +76,7 @@ function createTaskSkill(event) {
                 {
                   "type": "uri",
                   "label": "Edit",
-                  "uri": "https://linebot-todo.heroku.com/"
+                  "uri": "https://linebot-todo.herokuapp.com/"
                 }
               }
             ]
