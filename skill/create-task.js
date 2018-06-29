@@ -6,7 +6,7 @@ function createTaskSkill(event) {
     return Promise.resolve(null);
   }
   if (event.message.text == 'List') {
-    const userTask = task.find(event.source.userId);
+    const userTask = taskModel.find(event.source.userId);
     event.result = { type: 'text', text: JSON.stringify(userTask) };
     return Promise.resolve(event.result);
   }
