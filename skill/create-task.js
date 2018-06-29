@@ -1,10 +1,14 @@
 const moment = require('moment');
-
-const tasks = []; // mock db
+const task = require('../db/task');
 
 function createTaskSkill(event) {
   if (!event.message.text) {
     return Promise.resolve(null);
+  }
+  if (event.message.text == 'List') {
+    const userTask = task.find(event.source.userId);
+    event.result = { type: 'text', text: JSON.stringify(userTask) };
+    return Promise.resolve(event.result);
   }
   const params = event.message.text.split(' : ');
   const task = params[0];
@@ -19,12 +23,11 @@ function createTaskSkill(event) {
   }
   const date = moment(`${params[1]} ${params[2]}`, 'DD/MM/YY HH:mm');
   const userId = event.source.userId;
-  tasks.push({
-    userId,
+  task.add(userId, {
     task,
     date,
     important: false,
-    finished: false
+    done: false
   });
   event.result = {
     type: 'text',
