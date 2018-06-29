@@ -1,5 +1,5 @@
 const moment = require('moment');
-const task = require('../db/task');
+const taskModel = require('../db/task');
 
 function createTaskSkill(event) {
   if (!event.message.text) {
@@ -23,7 +23,7 @@ function createTaskSkill(event) {
   }
   const date = moment(`${params[1]} ${params[2]}`, 'DD/MM/YY HH:mm');
   const userId = event.source.userId;
-  task.add(userId, {
+  taskModel.add(userId, {
     task,
     date,
     important: false,
