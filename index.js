@@ -34,7 +34,8 @@ function handleEvent(event) {
         return Promise.resolve(null);
       }
       return client.replyMessage(event.replyToken, event.result);
-    });
+    })
+    .catch(console.error);
 }
 
 passport.use(new LineStrategy({
