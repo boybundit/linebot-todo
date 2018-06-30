@@ -82,7 +82,8 @@ function checkAuth(req, res, next) {
   }
   return next();
 }
-app.use(checkAuth, express.static(path.join(__dirname, './web/build')))
+app.get('/', checkAuth);
+app.use(express.static(path.join(__dirname, './web/build')));
 
 app.use(taskMiddleware);
 
