@@ -9,6 +9,7 @@ const path = require('path');
 const line = require('@line/bot-sdk');
 const createTaskSkill = require('./skill/create-task');
 const taskMiddleware = require('./api/task');
+const bodyParser = require('body-parser')
 
 const config = {
   channelSecret: process.env.CHANNEL_SECRET,
@@ -42,6 +43,8 @@ function handleEvent(event) {
     })
     .catch(console.error);
 }
+
+app.use(bodyParser.json());
 
 passport.use(new LineStrategy({
   channelID: process.env.WEB_CHANNEL_ID,

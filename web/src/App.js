@@ -32,6 +32,15 @@ class App extends Component {
         this.setState({ items: newItems });
       });
   }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.items !== prevState.items) {
+      axios.post(`${url}/tasks`, this.state.items.reduce((acc, val) => acc.concat(val), []))
+        .then(res => {
+          const tasks = res.data;
+          console.log(tasks);
+        });
+    }
+  }
   handleSortEnd = (listIndex) => ({oldIndex, newIndex}) => {
     const newItems = this.state.items.slice(0);
     newItems[listIndex] = arrayMove(newItems[listIndex], oldIndex, newIndex);
