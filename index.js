@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express');
-const cors = require('cors')
+const helmet = require('helmet');
+const cors = require('cors');
 const passport = require('passport');
 const LineStrategy = require('passport-line-auth').Strategy;
 const jwt = require('jsonwebtoken');
@@ -16,6 +17,7 @@ const config = {
 const client = new line.Client(config);
 const app = express();
 
+app.use(helmet.noCache());
 app.use(cors());
 
 app.post('/linewebhook', line.middleware(config), (req, res) => {
