@@ -1,5 +1,4 @@
 const express = require('express');
-const moment = require('moment');
 const taskModel = require('../db/task');
 
 const router = express.Router();
@@ -16,7 +15,6 @@ router.get('/tasks', checkAuth, (req, res) => {
 });
 
 router.post('/tasks', checkAuth, (req, res) => {
-  console.log(req.body);
   return res.json(taskModel.refresh(req.user.id, req.body));
 });
 

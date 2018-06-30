@@ -15,6 +15,7 @@ const config = {
   channelSecret: process.env.CHANNEL_SECRET,
   channelAccessToken:  process.env.CHANNEL_ACCESS_TOKEN 
 };
+
 const client = new line.Client(config);
 const app = express();
 
@@ -44,8 +45,6 @@ function handleEvent(event) {
     .catch(console.error);
 }
 
-app.use(bodyParser.json());
-
 passport.use(new LineStrategy({
   channelID: process.env.WEB_CHANNEL_ID,
   channelSecret: process.env.WEB_CHANNEL_SECRET,
@@ -59,22 +58,17 @@ function(accessToken, refreshToken, params, profile, cb) {
   return cb(null, profile);
 }));
 
-// Configure Passport authenticated session persistence.
-passport.serializeUser(function(user, cb) {cb(null, user);});
-passport.deserializeUser(function(obj, cb) {cb(null, obj);});
+passport.serializeUser(function(user, cb) { cb(null, user); });
+passport.deserializeUser(function(obj, cb) { cb(null, obj); });
 
-// Use application-level middleware for common functionality, including
-// parsing, and session handling.
+app.use(bodyParser.json());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: process.env.CHANNEL_SECRET, resave: true, saveUninitialized: true }));
 
-// Initialize Passport and restore authentication state, if any, from the session.
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Define routes.
 app.get('/login/line', passport.authenticate('line'));
-
 app.get('/login/line/return',
   passport.authenticate('line', { failureRedirect: '/' }),
   function(req, res) {
