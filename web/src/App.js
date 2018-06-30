@@ -18,11 +18,12 @@ class App extends Component {
     ]]
   };
   componentDidMount() {
-    /*axios.get(`https://jsonplaceholder.typicode.com/users`)
+    axios.get(`https://linebot-todo.herokuapp.com/tasks`)
       .then(res => {
-        const persons = res.data;
-        this.setState({ persons });
-      })*/
+        const tasks = res.data;
+        console.log(tasks);
+        //this.setState({ items });
+      });
   }
   handleSortEnd = (listIndex) => ({oldIndex, newIndex}) => {
     const newItems = this.state.items.slice(0);
