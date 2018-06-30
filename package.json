@@ -12,12 +12,13 @@
     "express-session": "^1.15.6",
     "helmet": "^3.12.1",
     "jsonwebtoken": "^8.3.0",
-    "mocha": "^5.2.0",
     "moment": "^2.22.2",
     "passport": "^0.4.0",
     "passport-line-auth": "^0.2.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^5.2.0",
+  },
   "scripts": {
     "postinstall": "cd web && npm install && npm run build",
     "start": "node index.js",
