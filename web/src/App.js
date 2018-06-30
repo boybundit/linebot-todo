@@ -4,6 +4,8 @@ import List from './List';
 import { arrayMove } from 'react-sortable-hoc';
 import axios from 'axios';
 
+const url = process.env.REACT_APP_API_URL;
+
 class App extends Component {
   state = {
     items: [[
@@ -18,7 +20,7 @@ class App extends Component {
     ]]
   };
   componentDidMount() {
-    axios.get(`http://localhost/tasks`)
+    axios.get(`${url}/tasks`)
       .then(res => {
         const tasks = res.data;
         console.log(tasks);
