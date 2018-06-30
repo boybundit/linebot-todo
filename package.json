@@ -21,7 +21,7 @@
   "scripts": {
     "postinstall": "cd web && npm install && npm run build",
     "start": "node index.js",
-    "test": "mocha db/*.test.js"
+    "test": "mocha db/*.test.js skill/*.test.js"
   },
   "repository": {
     "type": "git",
