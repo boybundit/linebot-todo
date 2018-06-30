@@ -83,4 +83,4 @@ app.use(checkAuth, express.static(path.join(__dirname, './web/build')))
 
 app.use(taskMiddleware);
 
-app.listen(process.env.PORT || 3000, () => console.log('Started'));
+app.listen(process.env.PORT || 80, () => console.log('Started'));

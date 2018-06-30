@@ -1,13 +1,8 @@
 const express = require('express');
 const moment = require('moment');
+const taskModel = require('../db/task');
 
 const router = express.Router();
-
-const tasks = [
-  { userId: 'U17448c796a01b715d293c34810985a4c', tasks: [{ id: '0', task:'', date: moment().format()}] },
-  { userId: 'U17448c796a01b715d293c34810985a4d', tasks: [] },
-  { userId: 'U17448c796a01b715d293c34810985a4e', tasks: [] }
-]; // mock db
 
 function checkAuth(req, res, next) {
   if (!req.user) {
@@ -17,7 +12,11 @@ function checkAuth(req, res, next) {
 }
 
 router.get('/tasks', checkAuth, (req, res) => {
-  return res.json(tasks.filter(task => task.userId === req.user.id));
+  return res.json(taskModel.find(req.user.id));
+});
+
+router.post('/tasks', checkAuth, (req, res) => {
+  return res.json(taskModel.refresh(req.user.id, req.body));
 });
 
 module.exports = router;

@@ -1,17 +1,20 @@
 const moment = require('moment');
 
+// uuidv4 just for fun https://gist.github.com/jed/982883
+function b(a){return a?(a^Math.random()*16>>a/4).toString(16):([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,b)}
+
 const taskList = [
-  { userId: 'U17448c796a01b715d293c34810985a4c', tasks: [{ id: '0', task:'', date: moment().format()}] },
-  { userId: 'U17448c796a01b715d293c34810985a4d', tasks: [] }
+  { userId: 'U17448c796a01b715d293c34810985a4c', tasks: [{ id: b(), task:'Task 1', date: moment().format()}] }
 ]; // mock db
 
 const taskModel = {};
 
-// uuidv4 just for fun https://gist.github.com/jed/982883
-function b(a){return a?(a^Math.random()*16>>a/4).toString(16):([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,b)}
-
 taskModel.find = (userId) => {
-  return taskList.find(d => d.userId === userId);
+  const userTask = taskList.find(d => d.userId === userId);
+  if (!userTask) {
+    return null;
+  }
+  return userTask.tasks;
 };
 
 taskModel.add = (userId, task) => {
@@ -21,7 +24,7 @@ taskModel.add = (userId, task) => {
     taskList.push(userTask);
   }
   userTask.tasks.push(Object.assign({ id: b() }, task));
-  return userTask;
+  return userTask.tasks;
 };
 
 taskModel.update = (userId, task) => {
@@ -34,7 +37,7 @@ taskModel.update = (userId, task) => {
     return;
   }
   Object.assign(currentTask, task);
-  return userTask;
+  return userTask.tasks;
 };
 
 taskModel.refresh = (userId, tasks) => {
@@ -43,7 +46,7 @@ taskModel.refresh = (userId, tasks) => {
     return;
   }
   userTask.tasks = tasks;
-  return userTask;
+  return userTask.tasks;
 };
 
 module.exports = taskModel;
