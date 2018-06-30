@@ -8,19 +8,19 @@ const SortableItem = SortableElement(({value, onChangeImportant, onChangeDone}) 
     <div className="d-flex w-100 justify-content-between">
       <h5 className="mb-1">{value.task}</h5>
       <small className="text-muted">
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" defaultChecked={value.important} onChange={onChangeImportant(value)} />
-          <label className="form-check-label">Pin</label>
-        </div>
+        {moment(value.date).format('DD/MM/YY HH:mm')}
       </small>
     </div>
-    <p className="mb-1">Due: {moment(value.date).fromNow()}</p>
-    <small className="text-muted">
+    <p className="mb-1">
+      <div className="form-check">
+        <input className="form-check-input" type="checkbox" defaultChecked={value.important} onChange={onChangeImportant(value)} />
+        <label className="form-check-label">Important</label>
+      </div> 
       <div className="form-check">
         <input className="form-check-input" type="checkbox" defaultChecked={value.done} onChange={onChangeDone(value)} />
         <label className="form-check-label">Done</label>
-      </div>
-    </small>
+      </div>   
+    </p>
   </li>
 );
 
@@ -43,7 +43,7 @@ const SortableList = SortableContainer(({items, onChangeImportant, onChangeDone}
 class List extends Component {
   render() {
     return (
-      <SortableList items={this.props.items}
+      <SortableList items={this.props.items} pressDelay="200" lockToContainerEdges="true"
         onSortEnd={this.props.onSortEnd}
         onChangeImportant={this.props.onChangeImportant}
         onChangeDone={this.props.onChangeDone} />

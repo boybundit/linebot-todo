@@ -8,16 +8,7 @@ const url = process.env.REACT_APP_API_URL;
 
 class App extends Component {
   state = {
-    items: [[
-      { id:0, task:'Item 1 x', date: new Date('2018-12-01'), important: true },
-      { id:1, task:'Item 2 x', date: new Date(), important: true },
-      { id:2, task:'Item 3 x', date: new Date(), important: true }
-    ], [
-      { id:3, task:'Item 4', date: new Date(), important: false },
-      { id:4, task:'Item 5', date: new Date(), important: false, done: false }
-    ], [
-      { id:5, task:'Item 6', date: new Date(), important: false, done: true }
-    ]]
+    items: [[], [], []]
   };
   componentDidMount() {
     axios.get(`${url}/tasks`)
@@ -66,25 +57,23 @@ class App extends Component {
   };
   render() {
     return (
-      <div className="container">
-        <h1 className="App-title">Todo List</h1>
-        <p className="lead">LINE botfor helping people manage their todo list</p>
+      <div className="container text-center">
         <h4>Important</h4>
-        <div className="container">
+        <div className="container text-left">
           <List id="important" items={this.state.items[0]}
             onSortEnd={this.handleSortEnd(0)}
             onChangeImportant={this.handleChangeImportant(0)}
             onChangeDone={this.handleChangeDone(0)}></List>
         </div>
         <h4>In progress</h4>
-        <div className="container">
+        <div className="container text-left">
           <List id="normal" items={this.state.items[1]}
             onSortEnd={this.handleSortEnd(1)}
             onChangeImportant={this.handleChangeImportant(1)}
             onChangeDone={this.handleChangeDone(1)}></List>
         </div>
         <h4>Done</h4>
-        <div className="container">
+        <div className="container text-left">
           <List id="done" items={this.state.items[2]}
             onSortEnd={this.handleSortEnd(2)}
             onChangeImportant={this.handleChangeImportant(2)}
