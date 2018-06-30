@@ -18,11 +18,16 @@ class App extends Component {
     ]]
   };
   componentDidMount() {
-    axios.get(`https://linebot-todo.herokuapp.com/tasks`)
+    axios.get(`http://localhost/tasks`)
       .then(res => {
         const tasks = res.data;
         console.log(tasks);
-        //this.setState({ items });
+        const newItems = [];
+        newItems.push(tasks.filter(d => d.important && !d.done));
+        newItems.push(tasks.filter(d => !d.important && !d.done));
+        newItems.push(tasks.filter(d => d.done));
+        console.log(newItems);
+        this.setState({ items: newItems });
       });
   }
   handleSortEnd = (listIndex) => ({oldIndex, newIndex}) => {
