@@ -5,6 +5,10 @@ function createTaskSkill(event) {
   if (!event.message.text) {
     return Promise.resolve(null);
   }
+  if (event.message.text == 'edit') {
+    event.result = { type: 'text', text: 'https://linebot-todo.herokuapp.com/' };
+    return Promise.resolve(event.result);
+  }
   if (event.message.text == 'List') {
     const userTask = taskModel.find(event.source.userId);
     event.result = { type: 'text', text: JSON.stringify(userTask) };
